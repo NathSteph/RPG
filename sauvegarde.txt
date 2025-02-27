@@ -1,0 +1,7 @@
+totor
+55
+33 10
+3
+Potion de force:POTION
+Arc en bois:ARME
+Casque en acier:ARMURE
