@@ -9,10 +9,13 @@
 #include <fstream>
 #include <sstream>
 #include <limits>
+#include <ctime>
 
 using namespace std;
 
-Jeu::Jeu() : joueur("t", rand() % 50 + 100, rand() % 30 + 10, rand() % 10 + 5), allie("Sauveur", rand() % 70 + 100, 0, 0) {}
+Jeu::Jeu() : joueur("t", rand() % 50 + 100, rand() % 30 + 10, rand() % 10 + 5), allie("Sauveur", rand() % 70 + 100, 0, 0) {
+    srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
+}
 
 void Jeu::trouverObjet() {
     std::vector<Objet*> objetsTrouves = {
@@ -36,18 +39,21 @@ void Jeu::trouverObjet() {
 
     if (choix == 'O' || choix == 'o') {
         joueur.ajouterObjet(objet);
-        std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
+        //std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
     } else {
         std::cout << "❌ Vous laissez l’objet sur place.\n";
     }
 }
 
-
 void Jeu::rencontrerAllie() {
-    std::cout << "🤝 Vous rencontrez"<< allie.getNom() << "c'est un allié ! Il veut vous offrir un objet.\n";
-    allie.offrirObjet();
+    std::cout << "🤝 Vous rencontrez "<< allie.getNom() << " c'est un allié !\n";
+    Objet* objet = allie.offrirObjet();
+    if (objet != nullptr) {
+        joueur.ajouterObjet(objet);
+    } else {
+        std::cout << "👋 " << allie.getNom() << " s'en va...\n";
+    }
 }
-
 
 void Jeu::combattre(Ennemi& ennemi) {
     std::cout << "⚔️  Un combat commence contre " << ennemi.getNom() << " !\n";
@@ -78,7 +84,7 @@ void Jeu::combattre(Ennemi& ennemi) {
                     joueur.ajouterObjet(obj);
                 }
             }
-            std::cout << "Voulez-vous sauvegarder la partie avant de quitter ? (O/N) : ";
+            std::cout << "Voulez-vous sauvegarder la partie ? (O/N) : ";
             char choix;
             std::cin >> choix;
             if (choix == 'O' || choix == 'o') {
@@ -109,8 +115,6 @@ void Jeu::lancerPartie() {
     joueur.setDefense(rand() % 10 + 5);
     joueur.setInventaire(std::vector<Objet*>());
 
-
-
     std::vector<std::string> nomsEnnemis = {"Gobelin", "Orc", "Loup", "Squelette", "Bandit"};
     
     std::cout << "🎮 Début du jeu...\n";
@@ -133,7 +137,7 @@ void Jeu::lancerPartie() {
         std::cout << "⚔️  Un " << ennemi.getNom() << " sauvage apparaît !\n";
 
         char choix;
-        std::cout << "👉 Que voulez-vous faire ? (A: Attaquer / F: Fuir) : ";
+        std::cout << "👉 Que voulez-vous faire ? (A: Attaquer / F: Fuir / Q: Quitter) : ";
         std::cin >> choix;
 
         if (choix == 'A' || choix == 'a') {
@@ -143,9 +147,13 @@ void Jeu::lancerPartie() {
             if (!estVivant) {
                 return; // Sort du jeu si le joueur est mort
             }
-        } else {
+        } else if (choix == 'F' || choix == 'F') {
             std::cout << "🏃 Vous prenez la fuite...\n";
-
+        }
+        else if (choix == 'Q' || choix == 'q') {
+            std::cout << "👋 Au revoir !\n";
+            sauvegarderPartie();
+            exit(0);
         }
     }
 }
@@ -196,8 +204,6 @@ void Jeu::chargerPartie() {
         cout << "❌ Erreur : Impossible de charger la partie." << endl;
     }
 }
-
-
 
 void Jeu::sauvegarderPartie() const {
     ofstream fichier("sauvegarde.txt");

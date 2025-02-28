@@ -8,6 +8,10 @@ Personnage::~Personnage() {
     for (auto obj : inventaire) delete obj;
 }
 
+std::string Personnage::getNom() const {
+    return nom;
+}
+
 void Personnage::attaquer(Personnage& cible) {
     int degats = (rand() % attaque) - cible.defense;
     if (degats < 0) degats = 0;
@@ -20,20 +24,24 @@ void Personnage::recevoirDegats(int degats) {
     if (PV < 0) PV = 0;
 }
 
-bool Personnage::estVivant() const {
-    return PV > 0;
-}
-
-/*bool Personnage::ajouterObjet(Objet* objet) {
-    if (inventaire.size() < 10) {
-        inventaire.push_back(objet);
-        return true;
-    }
-    return false;
-}*/
-
 void Personnage::afficherInventaire() const {
     std::cout << nom << " possède :\n";
     for (auto obj : inventaire)
         std::cout << "- " << obj->getNom() << "\n";
+}
+
+int Personnage::getPV() const {
+    return PV;
+}
+
+int Personnage::getAttaque() const {
+    return attaque;
+}
+
+int Personnage::getDefense() const {
+    return defense;
+}
+
+bool Personnage::estVivant() const {
+    return PV > 0;
 }

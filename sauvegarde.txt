@@ -1,7 +1,6 @@
-totor
-55
-33 10
-3
+po
+37
+26 12
+2
 Potion de force:POTION
-Arc en bois:ARME
-Casque en acier:ARMURE
+Plastron en fer:ARMURE

@@ -8,6 +8,13 @@ using namespace std;
 
 Joueur::Joueur(std::string nom, int pv, int atk, int def) : Personnage(nom, pv, atk, def) {}
 
+std::string Joueur::getNom() const{
+    return this->nom;
+}
+
+std::vector<Objet*> Joueur::getInventaire() const{
+    return this->inventaire;
+}
 
 void Joueur::afficherInventaire() const {
     cout << "🎒 Inventaire de " << nom << " :\n";
@@ -15,7 +22,6 @@ void Joueur::afficherInventaire() const {
         cout << "- " << objet->getNom() << " (" << objet->getType() << ")\n";
     }
 }
-
 
 void Joueur::attaquer(Personnage& cible) {
     int degats = (rand() % this->attaque) - cible.getDefense();
@@ -31,6 +37,18 @@ void Joueur::attaquer(Personnage& cible) {
     }
 
     //this->afficherInfos();
+}
+
+void Joueur::utiliserPotion() {
+    for (auto it = inventaire.begin(); it != inventaire.end(); ++it) {
+        if ((*it)->getType() == "POTION") {
+            std::cout << "💖 Vous utilisez une " << (*it)->getNom() << " et récupérez 50 PV !\n";
+            pointsDeVie += 50; // La potion restaure 50 PV (ajuste cette valeur si nécessaire)
+            delete *it; // Libère la mémoire de l'objet
+            inventaire.erase(it); // Supprime la potion de l’inventaire
+            return;
+        }
+    }
 }
 
 void Joueur::ajouterObjet(Objet* objet) {
@@ -69,8 +87,10 @@ void Joueur::setInventaire(std::vector<Objet*> inventaire) {
     this->inventaire = inventaire;
 }
 
-std::string Joueur::getNom() const{
-    return this->nom;
+// Afficher les infos du joueur
+void Joueur::afficherInfos() const {
+    std::cout << "Joueur : " << nom << " | PV: " << pointsDeVie 
+              << " | ATK: " << attaque << " | DEF: " << defense << std::endl;
 }
 
 int Joueur::getPointsDeVie() {
@@ -85,13 +105,5 @@ int Joueur::getDefense() const{
     return this->defense;
 }
 
-std::vector<Objet*> Joueur::getInventaire() const{
-    return this->inventaire;
-}
 
-// Afficher les infos du joueur
-void Joueur::afficherInfos() const {
-    std::cout << "Joueur : " << nom << " | PV: " << pointsDeVie 
-              << " | ATK: " << attaque << " | DEF: " << defense << std::endl;
-}
 

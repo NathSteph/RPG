@@ -8,7 +8,6 @@ private:
     int defense;
 public:
     Armure(std::string n, int d) : Objet(n, "ARMURE"), defense(d) {}
-    // autres méthodes spécifiques à Armure
 };
 
 #endif

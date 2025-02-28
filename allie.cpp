@@ -4,13 +4,15 @@
 #include "armure.hpp"
 #include <cstdlib>
 #include <iostream>
+#include <ctime>
 
 Allie::Allie(std::string nom, int pv, int atk, int def) : Personnage(nom, pv, atk, def) {
-    int evenement = rand() % 2;
-    if (evenement == 0) {
-        initLot();
-    }
+    srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
+    initLot();
     this->nom = nom;
+    this->pointsDeVie = pv;
+    this->attaque = atk;
+    this->defense = def;
 }
 
 void Allie::initLot() {

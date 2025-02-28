@@ -2,6 +2,7 @@
 #include "joueur.hpp"
 #include <cstdlib>
 #include <iostream>
+#include <ctime>
 #include "potion.hpp"
 #include "arme.hpp"
 #include "armure.hpp"
@@ -9,8 +10,14 @@
 // Constructeur de l'ennemi
 Ennemi::Ennemi(std::string nom, int pv, int atk, int def) 
     : Personnage(nom, pv, atk, def) {
+        srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
         initLot();
     }
+
+// Retourne le lot d'objets de l'ennemi
+std::vector<Objet*> Ennemi::getLot() const {
+    return lot;
+}
 
 // Afficher les infos de l'ennemi
 void Ennemi::afficherInfos() const {
@@ -43,11 +50,6 @@ void Ennemi::ajouterObjet(Objet* obj) {
         std::cout << "❌ Inventaire plein !\n";
         delete obj; // Libère la mémoire si l'objet ne peut pas être ajouté
     }
-}
-
-// Retourne le lot d'objets de l'ennemi
-std::vector<Objet*> Ennemi::getLot() const {
-    return lot;
 }
 
 void Ennemi::attaquer(Joueur& joueur) {

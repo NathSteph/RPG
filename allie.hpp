@@ -9,9 +9,11 @@ class Allie : public Personnage {
 private:
     std::vector<Objet*> objets; // Inventaire de l'allié
     std::string nom;
+    
     int pointsDeVie;
     int attaque;
     int defense;
+
     void initLot();
 
 public:

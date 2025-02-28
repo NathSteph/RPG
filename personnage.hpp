@@ -8,10 +8,10 @@
 class Personnage {
 protected:
     std::string nom;
+    std::vector<Objet*> inventaire;
     int PV;
     int attaque;
     int defense;
-    std::vector<Objet*> inventaire;
     Objet* arme;
     Objet* armure;
     Objet* potion;
@@ -19,17 +19,17 @@ protected:
 public:
     Personnage(std::string nom, int pv, int atk, int def);
     virtual ~Personnage();
-    
     virtual void attaquer(Personnage& cible);
+    std::string getNom() const;
+
     void recevoirDegats(int degats);
-    bool estVivant() const;
-    //bool ajouterObjet(Objet* objet);
     void afficherInventaire() const;
     
-    std::string getNom() const { return nom; }
-    int getPV() const { return PV; }
-    int getAttaque() const { return attaque; }
-    int getDefense() const { return defense; }
+    int getPV() const;
+    int getAttaque() const;
+    int getDefense() const;
+
+    bool estVivant() const;
 };
 
 

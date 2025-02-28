@@ -2,10 +2,10 @@
 TARGET = monjeu
 
 # Liste des fichiers sources (ajoutez vos fichiers ici)
-SOURCES = main.cpp ennemi.cpp joueur.cpp jeu.cpp personnage.cpp objet.cpp
+SOURCES = main.cpp ennemi.cpp joueur.cpp jeu.cpp personnage.cpp objet.cpp allie.cpp
 
 # Liste des dépendances (ajoutez vos fichiers d'entête ici)
-HEADERS = jeu.hpp personnage.hpp ennemi.hpp joueur.hpp objet.hpp arme.hpp armure.hpp potion.hpp
+HEADERS = jeu.hpp personnage.hpp ennemi.hpp joueur.hpp objet.hpp arme.hpp armure.hpp potion.hpp allie.hpp
 
 # Compilateur et flags
 CXX = g++

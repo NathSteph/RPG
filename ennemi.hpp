@@ -13,11 +13,13 @@ class Ennemi : public Personnage {
 
     public:
         Ennemi(std::string nom, int pv, int atk, int def);
-        void attaquer(Joueur& joueur);
+        
+        std::vector<Objet*> getLot() const;
 
+        void attaquer(Joueur& joueur);
         void afficherInfos() const;  // Pour afficher les infos de l'ennemi
         void ajouterObjet(Objet* obj);
-        std::vector<Objet*> getLot() const;
+        
     };
 
 #endif

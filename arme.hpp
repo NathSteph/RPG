@@ -8,7 +8,6 @@ private:
     int puissance;
 public:
     Arme(std::string n, int p) : Objet(n, "ARME"), puissance(p) {}
-    // autres méthodes spécifiques à Arme
 };
 
 #endif
