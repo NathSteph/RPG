@@ -8,6 +8,7 @@ private:
     int defense;
 public:
     Armure(std::string n, int d) : Objet(n, "ARMURE"), defense(d) {}
+    int getDefense() const { return defense; }
 };
 
 #endif

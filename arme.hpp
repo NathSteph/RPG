@@ -8,6 +8,7 @@ private:
     int puissance;
 public:
     Arme(std::string n, int p) : Objet(n, "ARME"), puissance(p) {}
+    int getPuissance() const { return puissance; }
 };
 
 #endif

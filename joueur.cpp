@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -103,6 +104,84 @@ void Joueur::afficherInfos() const {
     std::cout << "Joueur : " << nom << " | PV: " << pointsDeVie 
               << " | ATK: " << attaque << " | DEF: " << defense << std::endl;
 }
+
+void Joueur::afficherEquipement() const {
+    std::cout << "🛡️ Équipement actuel de " << nom << " :\n";
+    std::cout << "- Arme : " << (armeEquipee ? armeEquipee->getNom() : "Aucune") << "\n";
+    std::cout << "- Armure : " << (armureEquipee ? armureEquipee->getNom() : "Aucune") << "\n";
+}
+
+void Joueur::equiperObjet() {
+    std::cout << "🎒 Choisissez un objet à équiper :\n";
+    
+    int index = 1;
+    std::vector<Objet*> choix;
+
+    for (auto& objet : inventaire) {
+        if (objet->getType() == "ARME" || objet->getType() == "ARMURE") {
+            std::cout << index << ". " << objet->getNom() << " (" << objet->getType() << ")\n";
+            choix.push_back(objet);
+            index++;
+        }
+    }
+
+    if (choix.empty()) {
+        std::cout << "❌ Vous n'avez ni arme ni armure dans votre inventaire.\n";
+        return;
+    }
+
+    int selection;
+    std::cout << "👉 Entrez le numéro de l'objet à équiper (0 pour annuler) : ";
+    std::cin >> selection;
+
+    if (selection > 0 && selection <= (int)choix.size()) {
+        Objet* objetChoisi = choix[selection - 1];
+
+        if (objetChoisi->getType() == "ARME") {
+            if (armeEquipee) {
+                std::cout << "❌ Vous retirez " << armeEquipee->getNom() << ".\n";
+                attaque -= armeEquipee->getPuissance(); //
+                inventaire.push_back(armeEquipee);
+                armeEquipee = nullptr;
+            }
+            armeEquipee = dynamic_cast<Arme*>(objetChoisi);
+            attaque += armeEquipee->getPuissance(); // Augmentation fictive (ajuste selon l'arme)
+            std::cout << "⚔️ Vous équipez " << armeEquipee->getNom() << " (+" << armeEquipee->getPuissance() << " attaque) !\n";
+        } 
+        else if (objetChoisi->getType() == "ARMURE") {
+            if (armureEquipee) {
+                std::cout << "❌ Vous retirez " << armureEquipee->getNom() << ".\n";
+                defense -= armureEquipee->getDefense(); //
+                inventaire.push_back(armureEquipee);
+                armureEquipee = nullptr;
+            }
+            armureEquipee = dynamic_cast<Armure*>(objetChoisi);
+            defense += armureEquipee->getDefense(); // Augmentation fictive (ajuste selon l’armure)
+            std::cout << "🛡️ Vous équipez " << armureEquipee->getNom() << " (+" << armureEquipee->getDefense() << " défense) !\n";
+        }
+
+        // Retirer l'objet de l'inventaire
+        inventaire.erase(std::remove(inventaire.begin(), inventaire.end(), objetChoisi), inventaire.end());
+    } 
+    else {
+        std::cout << "❌ Annulation.\n";
+    }
+}
+
+/*void Joueur::retirerObjet(Objet* objetChoisi) {
+    auto it = std::remove_if(inventaire.begin(), inventaire.end(),
+        [objetChoisi](Objet* obj) { return obj == objetChoisi; });
+
+    if (it != inventaire.end()) {
+        delete *it;  // Libérer la mémoire si nécessaire
+        inventaire.erase(it, inventaire.end());
+        std::cout << "🗑 Objet retiré de l'inventaire !\n";
+    } else {
+        std::cout << "⚠️ Objet introuvable dans l'inventaire.\n";
+    }
+}*/
+
+
 
 int Joueur::getPointsDeVie() {
     return this->pointsDeVie;

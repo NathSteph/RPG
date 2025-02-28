@@ -33,24 +33,44 @@ void Jeu::trouverObjet() {
     Objet* objet = objetsTrouves[rand() % objetsTrouves.size()];
 
     std::cout << "🎁 Vous trouvez un objet : " << objet->getNom() << "\n";
-    std::cout << "Voulez-vous le ramasser ? (O/N) : ";
     char choix;
-    std::cin >> choix;
-
-    if (choix == 'O' || choix == 'o') {
-        joueur.ajouterObjet(objet);
-        //std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
-    } else {
-        std::cout << "❌ Vous laissez l’objet sur place.\n";
+    if(objet->getType() == "POTION"){
+        std::cout << "Voulez-vous le ramasser ? (O/N) : ";
+        std::cin >> choix;
+        if (choix == 'O' || choix == 'o') {
+            joueur.ajouterObjet(objet);
+            //std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
+        } else {
+            std::cout << "❌ Vous laissez l’objet sur place.\n";
+        }
+    }
+    else{
+        std::cout << "Voulez-vous l'équiper ? (O/N) : ";
+        std::cin >> choix;
+        if (choix == 'o' || choix == 'O') {
+            joueur.ajouterObjet(objet);
+            joueur.equiperObjet();
+        } else {
+            joueur.ajouterObjet(objet);
+            std::cout << "🎒 L'objet a été ajouté à votre inventaire.\n";
+        }
     }
 }
 
 void Jeu::rencontrerAllie() {
+    char choix;
     std::cout << "🤝 Vous rencontrez "<< allie.getNom() << " c'est un allié !\n";
     Objet* objet = allie.offrirObjet();
-    if (objet != nullptr) {
-        joueur.ajouterObjet(objet);
-    } else {
+    if (objet != nullptr && objet->getType() != "POTION") {
+        std::cout << "Voulez-vous l'équiper ? (O/N) : ";
+        std::cin >> choix;
+        if (choix == 'o' || choix == 'O') {
+            joueur.equiperObjet();
+        } else{
+            std::cout << "🎒 L'objet n'a pas été équipé !\n";
+        }
+    }
+    else {
         std::cout << "👋 " << allie.getNom() << " s'en va...\n";
     }
 }
