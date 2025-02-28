@@ -9,11 +9,16 @@ class Joueur : public Personnage {
 private:
     std::string nom;
     std::vector<Objet*> inventaire;
+
+    Objet* armeEquipee = nullptr;   // Arme actuellement équipée
+    Objet* armureEquipee = nullptr; // Armure actuellement équipée
+
     int pointsDeVie;
     int attaque;
     int defense;
 public:    
     Joueur(std::string nom, int pv, int atk, int def);
+    virtual ~Joueur();
 
     std::string getNom() const;
     std::vector<Objet*> getInventaire() const;

@@ -98,9 +98,15 @@ void Jeu::combattre(Ennemi& ennemi) {
             return;
         }
         if (joueur.getPV() <= 0) {
-            std::cout << "💀 Vous avez été vaincu... GAME OVER.\n";
-            estVivant = false;
-            exit(0);
+            joueur.utiliserPotion();
+            if (joueur.getPV() > 0) {
+                std::cout << "💪 Vous êtes rétabli grâce à la potion et continuez à combattre !\n";
+            } else {
+                std::cout << "💀 Vous avez perdu... GAME OVER.\n";
+                estVivant = false;
+                exit(0);
+                break;
+            }
         }
 
         // Changement de tour

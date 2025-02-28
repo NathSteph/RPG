@@ -8,6 +8,17 @@ using namespace std;
 
 Joueur::Joueur(std::string nom, int pv, int atk, int def) : Personnage(nom, pv, atk, def) {}
 
+Joueur::~Joueur() {
+    // Libérer la mémoire des objets de l'inventaire
+    for (auto objet : inventaire) {
+        delete objet;
+    }
+    inventaire.clear();
+    if (armeEquipee) delete armeEquipee;
+    if (armureEquipee) delete armureEquipee;
+
+}
+
 std::string Joueur::getNom() const{
     return this->nom;
 }
