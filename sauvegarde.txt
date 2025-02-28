@@ -1,6 +1,6 @@
-po
-37
-26 12
+y
+60
+39 7
 2
-Potion de force:POTION
-Plastron en fer:ARMURE
+Casque en acier:ARMURE
+Potion de soin:POTION

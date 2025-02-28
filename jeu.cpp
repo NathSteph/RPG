@@ -45,14 +45,20 @@ void Jeu::trouverObjet() {
         }
     }
     else{
-        std::cout << "Voulez-vous l'équiper ? (O/N) : ";
+        std::cout << "Voulez-vous le ramasser ? (O/N) : ";
         std::cin >> choix;
         if (choix == 'o' || choix == 'O') {
             joueur.ajouterObjet(objet);
-            joueur.equiperObjet();
+            std::cout << "Voulez-vous l'équiper' ? (O/N) : ";
+            std::cin >> choix;
+            if (choix == 'o' || choix == 'O') {
+                joueur.equiperObjet();
+            } else {
+                std::cout << "🎒 L'objet n'a pas été équipé !\n";
+            }
+            
         } else {
-            joueur.ajouterObjet(objet);
-            std::cout << "🎒 L'objet a été ajouté à votre inventaire.\n";
+            std::cout << "❌ Vous laissez l’objet sur place.\n";
         }
     }
 }
@@ -68,6 +74,16 @@ void Jeu::rencontrerAllie() {
             joueur.equiperObjet();
         } else{
             std::cout << "🎒 L'objet n'a pas été équipé !\n";
+        }
+    }
+    else if(objet != nullptr && objet->getType() == "POTION"){
+        std::cout << "Voulez-vous le ramasser ? (O/N) : ";
+        std::cin >> choix;
+        if (choix == 'O' || choix == 'o') {
+            joueur.ajouterObjet(objet);
+            //std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
+        } else {
+            std::cout << "❌ Vous laissez l’objet sur place.\n";
         }
     }
     else {
