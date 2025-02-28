@@ -1,6 +1,7 @@
-y
-60
-39 7
-2
-Casque en acier:ARMURE
-Potion de soin:POTION
+tot
+36
+35 11
+3
+Potion mystérieuse:POTION
+Potion de défense:POTION
+Potion de résistance:POTION

@@ -55,7 +55,7 @@ void Joueur::utiliserPotion() {
     for (auto it = inventaire.begin(); it != inventaire.end(); ++it) {
         if ((*it)->getType() == "POTION") {
             std::cout << "💖 Vous utilisez une " << (*it)->getNom() << " et récupérez 50 PV !\n";
-            pointsDeVie += 50; // La potion restaure 50 PV (ajuste cette valeur si nécessaire)
+            setPointsDeVie(50); // La potion restaure 50 PV (ajuste cette valeur si nécessaire)
             delete *it; // Libère la mémoire de l'objet
             inventaire.erase(it); // Supprime la potion de l’inventaire
             return;

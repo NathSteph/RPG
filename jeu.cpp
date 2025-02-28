@@ -135,6 +135,7 @@ void Jeu::combattre(Ennemi& ennemi) {
         }
         if (joueur.getPV() <= 0) {
             joueur.utiliserPotion();
+            std::cout << joueur.getPV() << endl;
             if (joueur.getPV() > 0) {
                 std::cout << "💪 Vous êtes rétabli grâce à la potion et continuez à combattre !\n";
             } else {
@@ -291,7 +292,7 @@ void Jeu::continuerPartie() {
         std::cout << "⚔️  Un " << ennemi.getNom() << " sauvage apparaît !\n";
 
         char choix;
-        std::cout << "👉 Que voulez-vous faire ? (A: Attaquer / F: Fuir) : ";
+        std::cout << "👉 Que voulez-vous faire ? (A: Attaquer / F: Fuir / Q: Quitter) : ";
         std::cin >> choix;
 
         if (choix == 'A' || choix == 'a') {
@@ -301,8 +302,13 @@ void Jeu::continuerPartie() {
             if (!estVivant) {
                 return; // Sort du jeu si le joueur est mort
             }
-        } else {
+        } else if (choix == 'F' || choix == 'F') {
             std::cout << "🏃 Vous prenez la fuite...\n";
+        }
+        else if (choix == 'Q' || choix == 'q') {
+            std::cout << "👋 Au revoir !\n";
+            sauvegarderPartie();
+            exit(0);
         }
     }
 }
