@@ -17,7 +17,6 @@ public:
 
     void afficherEquipement() const; // Affiche l'équipement actuel
     void equiperObjet();  // Fonction pour équiper une arme ou une armure
-    //void retirerObjet(Objet* objetChoisi);
     void choisirNom();
     void utiliserPotion();
 };
