@@ -10,9 +10,10 @@ Allie::Allie(std::string nom, int pv, int atk, int def) : Personnage(nom, pv, at
     srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
     initLot();
     this->nom = nom;
-    this->pointsDeVie = pv;
+    this->PV = pv;
     this->attaque = atk;
     this->defense = def;
+    this->type = "ALLIE";
 }
 
 void Allie::initLot() {
@@ -41,7 +42,7 @@ void Allie::initLot() {
 }
 
 Objet* Allie::offrirObjet() {
-    if (objets.empty()) {
+    if (inventaire.empty()) {
         std::cout << nom << " n'a pas d'objet à offrir. 😢\n";
         return nullptr;
     }
@@ -49,8 +50,8 @@ Objet* Allie::offrirObjet() {
     std::cout << "🎁 " << nom << " veut vous offrir un objet !\n";
     
     // Afficher les objets disponibles
-    for (size_t i = 0; i < objets.size(); i++) {
-        std::cout << i + 1 << ". " << objets[i]->getNom() << " (" << objets[i]->getType() << ")\n";
+    for (size_t i = 0; i < inventaire.size(); i++) {
+        std::cout << i + 1 << ". " << inventaire[i]->getNom() << " (" << inventaire[i]->getType() << ")\n";
     }
 
     // Choix de l'objet
@@ -58,21 +59,12 @@ Objet* Allie::offrirObjet() {
     std::cout << "Quel objet voulez-vous prendre ? (Entrez le numéro) : ";
     std::cin >> choix;
 
-    if (choix >= 1 && choix <= (int)objets.size()) {
-        Objet* objetChoisi = objets[choix - 1];
-        objets.erase(objets.begin() + (choix - 1)); // Retirer l’objet de l’inventaire de l’allié
+    if (choix >= 1 && choix <= (int)inventaire.size()) {
+        Objet* objetChoisi = inventaire[choix - 1];
+        inventaire.erase(inventaire.begin() + (choix - 1)); // Retirer l’objet de l’inventaire de l’allié
         return objetChoisi;
     } else {
         std::cout << "❌ Choix invalide. Vous n'avez pris aucun objet. Il repart...\n";
         return nullptr;
-    }
-}
-
-void Allie::ajouterObjet(Objet* objet) {
-    if (objets.size() < 10) {
-        objets.push_back(objet);
-    } else {
-        std::cout << "❌ Inventaire plein !\n";
-        delete objet; // Libère la mémoire si l'objet ne peut pas être ajouté
     }
 }

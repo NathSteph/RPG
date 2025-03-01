@@ -11,19 +11,9 @@
 Ennemi::Ennemi(std::string nom, int pv, int atk, int def) 
     : Personnage(nom, pv, atk, def) {
         srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
+        this->type = "ENNEMI";
         initLot();
     }
-
-// Retourne le lot d'objets de l'ennemi
-std::vector<Objet*> Ennemi::getLot() const {
-    return lot;
-}
-
-// Afficher les infos de l'ennemi
-void Ennemi::afficherInfos() const {
-    std::cout << "Ennemi : " << nom << " | PV: " << PV 
-              << " | ATK: " << attaque << " | DEF: " << defense << std::endl;
-}
 
 // Initialiser le lot d'objets de l'ennemi
 void Ennemi::initLot() {
@@ -42,28 +32,3 @@ void Ennemi::initLot() {
     ajouterObjet(new Armure(nom, rand() % 5 + 2));
 }
 
-// Ajouter un objet au lot de l'ennemi
-void Ennemi::ajouterObjet(Objet* obj) {
-    if (lot.size() < 10) {
-        lot.push_back(obj);
-    } else {
-        std::cout << "❌ Inventaire plein !\n";
-        delete obj; // Libère la mémoire si l'objet ne peut pas être ajouté
-    }
-}
-
-void Ennemi::attaquer(Joueur& joueur) {
-    int degats = (rand() % this->attaque) - joueur.getDefense();
-    if (degats < 0) degats = 0;
-
-    joueur.recevoirDegats(degats); // Réduction directe des PV
-
-    std::cout << "👿 " << this->nom << " attaque et inflige " 
-              << degats << " points de dégâts à " << joueur.getNom() << ".\n";
-
-    if (joueur.getPV() <= 0) {
-        std::cout << "💀 Vous avez été vaincu...\n";
-    }
-
-    //this->afficherInfos();
-}

@@ -49,14 +49,13 @@ void Jeu::trouverObjet() {
         std::cin >> choix;
         if (choix == 'o' || choix == 'O') {
             joueur.ajouterObjet(objet);
-            std::cout << "Voulez-vous l'équiper' ? (O/N) : ";
+            std::cout << "Voulez-vous équiper une arme ou armure ? (O/N) : ";
             std::cin >> choix;
             if (choix == 'o' || choix == 'O') {
                 joueur.equiperObjet();
             } else {
-                std::cout << "🎒 L'objet n'a pas été équipé !\n";
+                std::cout << "🎒 Vous n'avez rien mis !\n";
             }
-            
         } else {
             std::cout << "❌ Vous laissez l’objet sur place.\n";
         }
@@ -67,8 +66,10 @@ void Jeu::rencontrerAllie() {
     char choix;
     std::cout << "🤝 Vous rencontrez "<< allie.getNom() << " c'est un allié !\n";
     Objet* objet = allie.offrirObjet();
+
     if (objet != nullptr && objet->getType() != "POTION") {
-        std::cout << "Voulez-vous l'équiper ? (O/N) : ";
+        joueur.ajouterObjet(objet);
+        std::cout << "Voulez-vous équiper une arme ou armure ? (O/N) : ";
         std::cin >> choix;
         if (choix == 'o' || choix == 'O') {
             joueur.equiperObjet();
@@ -87,7 +88,7 @@ void Jeu::rencontrerAllie() {
         }
     }
     else {
-        std::cout << "👋 " << allie.getNom() << " s'en va...\n";
+        std::cout << "👋 " << allie.getNom() << " s'en va avec...\n";
     }
 }
 
@@ -99,19 +100,26 @@ void Jeu::combattre(Ennemi& ennemi) {
 
     estVivant = true;
 
-    while (joueur.getPV() > 0 && ennemi.getPV() > 0) {
+    while (joueur.getPointsDeVie() > 0 && ennemi.getPointsDeVie() > 0) {
         if (tourJoueur) {
             std::cout << "🔹 Votre tour !\n";
             joueur.attaquer(ennemi);
         } else {
             std::cout << "🔻 L'ennemi attaque !\n";
             ennemi.attaquer(joueur);
+            if (joueur.getPointsDeVie() <= 0) {
+                joueur.utiliserPotion();
+                if (joueur.getPointsDeVie() > 0) {
+                    std::cout << "💪 Vous êtes rétabli grâce à la potion et continuez à combattre !\n";
+                    continue;
+                }
+            }
         }
 
         // Vérifier si l'un des deux est mort
-        if (ennemi.getPV() <= 0) {
+        if (ennemi.getPointsDeVie() <= 0) {
             std::cout << "🏆 Vous avez vaincu " << ennemi.getNom() << " ! Vous pouvez récupérer des objets.\n";
-            auto lot = ennemi.getLot();
+            auto lot = ennemi.getInventaire();
             for (Objet* obj : lot) {
                 std::cout << "Voulez-vous prendre " << obj->getNom() << " ? (O/N) : ";
                 char choix;
@@ -133,17 +141,12 @@ void Jeu::combattre(Ennemi& ennemi) {
             }
             return;
         }
-        if (joueur.getPV() <= 0) {
-            joueur.utiliserPotion();
-            std::cout << joueur.getPV() << endl;
-            if (joueur.getPV() > 0) {
-                std::cout << "💪 Vous êtes rétabli grâce à la potion et continuez à combattre !\n";
-            } else {
-                std::cout << "💀 Vous avez perdu... GAME OVER.\n";
-                estVivant = false;
-                exit(0);
-                break;
-            }
+
+        if (joueur.getPointsDeVie() <= 0) {
+            std::cout << "💀 Vous avez perdu... GAME OVER.\n";
+            estVivant = false;
+            exit(0);
+            break;
         }
 
         // Changement de tour
@@ -152,7 +155,7 @@ void Jeu::combattre(Ennemi& ennemi) {
 }
 
 void Jeu::lancerPartie() {
-    joueur.setNom();
+    joueur.choisirNom();
     joueur.setPointsDeVie(rand() % 50 + 100);
     joueur.setAttaque(rand() % 30 + 10);
     joueur.setDefense(rand() % 10 + 5);
@@ -162,7 +165,7 @@ void Jeu::lancerPartie() {
     
     std::cout << "🎮 Début du jeu...\n";
 
-    while (joueur.getPV() > 0) {
+    while (joueur.getPointsDeVie() > 0) {
 
         int evenement = rand() % 2;
         if (evenement == 0) {
@@ -253,7 +256,7 @@ void Jeu::sauvegarderPartie() const {
 
     if (fichier) {
         fichier << joueur.getNom() << endl;
-        fichier << joueur.getPV() << endl;
+        fichier << joueur.getPointsDeVie() << endl;
         fichier << joueur.getAttaque() << " " << joueur.getDefense() << endl;
         
         // Sauvegarde l'inventaire
@@ -274,7 +277,7 @@ void Jeu::continuerPartie() {
     
     std::cout << "🎮 Reprise du jeu...\n";
 
-    while (joueur.getPV() > 0) {
+    while (joueur.getPointsDeVie() > 0) {
 
         int evenement = rand() % 2;
         if (evenement == 0) {
