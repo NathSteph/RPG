@@ -1,10 +1,9 @@
-tot
-20
-48 11
-6
-Bouclier en bois:ARMURE
-Potion de défense:POTION
+totor
+126
+49 13
+5
 Potion mystérieuse:POTION
-Casque en acier:ARMURE
-Potion de soin:POTION
-Potion de soin:POTION
+Bouclier en bois:ARMURE
+Dague en acier:ARME
+Potion de défense:POTION
+Plastron en fer:ARMURE

@@ -13,9 +13,11 @@
 
 using namespace std;
 
-Jeu::Jeu() : joueur("t", rand() % 50 + 100, rand() % 30 + 10, rand() % 10 + 5), allie("Sauveur", rand() % 70 + 100, 0, 0) {
+Jeu::Jeu() : joueur("", rand() % 50 + 100, rand() % 30 + 10, rand() % 10 + 5), allie("Sauveur", rand() % 70 + 100, 0, 0) {
     srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
 }
+
+Jeu::~Jeu() {}
 
 void Jeu::trouverObjet() {
     std::vector<Objet*> objetsTrouves = {

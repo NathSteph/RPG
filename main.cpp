@@ -4,13 +4,17 @@
 
 using namespace std;
 
+/**
+ * @brief Affiche le menu principal du jeu.
+ */
 void afficherMenu() {
     cout << "=========================\n";
-    cout << "     RPG TEXTUEL\n";
+    cout << "     🌟 RPG TEXTUEL 🌟\n";
     cout << "=========================\n";
-    cout << "1. Nouvelle partie\n";
-    cout << "2. Charger une partie\n";
-    cout << "3. Quitter\n";
+    cout << "1. 🆕 Nouvelle partie\n";
+    cout << "2. 📂 Charger une partie\n";
+    cout << "3. ❌ Quitter\n";
+    cout << "=========================\n";
     cout << "Votre choix : ";
 }
 

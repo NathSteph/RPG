@@ -7,7 +7,6 @@
 #include "arme.hpp"
 #include "armure.hpp"
 
-// Constructeur de l'ennemi
 Ennemi::Ennemi(std::string nom, int pv, int atk, int def) 
     : Personnage(nom, pv, atk, def) {
         srand(static_cast<unsigned int>(time(0))); // Initialisation du générateur de nombres aléatoires
@@ -15,7 +14,6 @@ Ennemi::Ennemi(std::string nom, int pv, int atk, int def)
         initLot();
     }
 
-// Initialiser le lot d'objets de l'ennemi
 void Ennemi::initLot() {
     std::string nom;
     // Initialisation du lot d'objets

@@ -7,10 +7,11 @@
 
 using namespace std;
 
-Joueur::Joueur(std::string nom, int pv, int atk, int def) : Personnage(nom, pv, atk, def) {}
+Joueur::Joueur(std::string nom, int pv, int atk, int def) : Personnage(nom, pv, atk, def) {
+    this->type = "JOUEUR";
+}
 
 Joueur::~Joueur() {
-    this->type = "JOUEUR";
     // Libérer la mémoire des objets de l'inventaire
     for (auto objet : inventaire) {
         delete objet;
@@ -100,20 +101,3 @@ void Joueur::equiperObjet() {
         std::cout << "❌ Annulation.\n";
     }
 }
-
-/*void Joueur::retirerObjet(Objet* objetChoisi) {
-    auto it = std::remove_if(inventaire.begin(), inventaire.end(),
-        [objetChoisi](Objet* obj) { return obj == objetChoisi; });
-
-    if (it != inventaire.end()) {
-        delete *it;  // Libérer la mémoire si nécessaire
-        inventaire.erase(it, inventaire.end());
-        std::cout << "🗑 Objet retiré de l'inventaire !\n";
-    } else {
-        std::cout << "⚠️ Objet introuvable dans l'inventaire.\n";
-    }
-}*/
-
-
-
-
