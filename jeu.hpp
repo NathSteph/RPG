@@ -12,7 +12,6 @@
  */
 class Jeu {
 private:
-
     Joueur joueur; ///< Joueur du jeu
     Allie allie; ///< Allié du joueur
     bool estVivant; ///< Indique si le joueur est vivant
