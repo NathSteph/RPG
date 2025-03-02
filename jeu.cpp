@@ -43,7 +43,7 @@ void Jeu::trouverObjet() {
             joueur.ajouterObjet(objet);
             //std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
         } else {
-            std::cout << "❌ Vous laissez l’objet sur place.\n";
+            std::cout << "❌ Vous laissez l’objet sur place.\n\n";
         }
     }
     else{
@@ -53,13 +53,14 @@ void Jeu::trouverObjet() {
             joueur.ajouterObjet(objet);
             std::cout << "Voulez-vous équiper une arme ou armure ? (O/N) : ";
             std::cin >> choix;
+            std::cout << "\n";
             if (choix == 'o' || choix == 'O') {
                 joueur.equiperObjet();
             } else {
-                std::cout << "🎒 Vous n'avez rien mis !\n";
+                std::cout << "🎒 Vous n'avez rien mis !\n\n";
             }
         } else {
-            std::cout << "❌ Vous laissez l’objet sur place.\n";
+            std::cout << "❌ Vous laissez l’objet sur place.\n\n";
         }
     }
 }
@@ -73,10 +74,11 @@ void Jeu::rencontrerAllie() {
         joueur.ajouterObjet(objet);
         std::cout << "Voulez-vous équiper une arme ou armure ? (O/N) : ";
         std::cin >> choix;
+        std::cout << "\n";
         if (choix == 'o' || choix == 'O') {
             joueur.equiperObjet();
         } else{
-            std::cout << "🎒 L'objet n'a pas été équipé !\n";
+            std::cout << "🎒 L'objet n'a pas été équipé !\n\n";
         }
     }
     else if(objet != nullptr && objet->getType() == "POTION"){
@@ -86,16 +88,16 @@ void Jeu::rencontrerAllie() {
             joueur.ajouterObjet(objet);
             //std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
         } else {
-            std::cout << "❌ Vous laissez l’objet sur place.\n";
+            std::cout << "❌ Vous laissez l’objet sur place.\n\n";
         }
     }
     else {
-        std::cout << "👋 " << allie.getNom() << " s'en va avec...\n";
+        std::cout << "👋 " << allie.getNom() << " s'en va avec...\n\n";
     }
 }
 
 void Jeu::combattre(Ennemi& ennemi) {
-    std::cout << "⚔️  Un combat commence contre " << ennemi.getNom() << " !\n";
+    std::cout << "⚔️  Un combat commence contre " << ennemi.getNom() << " !\n\n";
 
     // Déterminer qui attaque en premier (1 = joueur, 0 = ennemi)
     bool tourJoueur = rand() % 2;
@@ -112,7 +114,7 @@ void Jeu::combattre(Ennemi& ennemi) {
             if (joueur.getPointsDeVie() <= 0) {
                 joueur.utiliserPotion();
                 if (joueur.getPointsDeVie() > 0) {
-                    std::cout << "💪 Vous êtes rétabli grâce à la potion et continuez à combattre !\n";
+                    std::cout << "💪 Vous êtes rétabli grâce à la potion et continuez à combattre !\n\n";
                     continue;
                 }
             }
@@ -136,8 +138,10 @@ void Jeu::combattre(Ennemi& ennemi) {
             if (choix == 'O' || choix == 'o') {
                 this->sauvegarderPartie();
             }
+            std::cout << "\n";
             std::cout << "Voulez-vous continuer à jouer ? (O/N) : ";
             std::cin >> choix;
+            std::cout << "\n";
             if (choix == 'N' || choix == 'n') {
                 exit(0); // Quitter le jeu après la victoire
             }
@@ -165,7 +169,7 @@ void Jeu::lancerPartie() {
 
     std::vector<std::string> nomsEnnemis = {"Gobelin", "Orc", "Loup", "Squelette", "Bandit"};
     
-    std::cout << "🎮 Début du jeu...\n";
+    std::cout << "🎮 Début du jeu...\n\n";
 
     while (joueur.getPointsDeVie() > 0) {
 
@@ -191,6 +195,7 @@ void Jeu::lancerPartie() {
         if (choix == 'A' || choix == 'a') {
             joueur.afficherInfos();
             ennemi.afficherInfos();
+            cout << "\n";
             combattre(ennemi);
             if (!estVivant) {
                 return; // Sort du jeu si le joueur est mort

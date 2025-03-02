@@ -1,9 +1,7 @@
-totor
-126
-49 13
-5
-Potion mystérieuse:POTION
-Bouclier en bois:ARMURE
-Dague en acier:ARME
+tor
+59
+33 7
+3
+Épée en bois:ARME
 Potion de défense:POTION
-Plastron en fer:ARMURE
+Épée rouillée:ARME

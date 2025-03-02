@@ -46,14 +46,15 @@ void Personnage::attaquer(Personnage& cible) {
         }
     }
 
-    //this->afficherInfos();
+    cible.afficherInfos();
+    std::cout << "\n";
 }
 
 void Personnage::ajouterObjet(Objet* objet) {
     if(this->getType() == "JOUEUR") {
         if (this->inventaire.size() < 10) {
             this->inventaire.push_back(objet);
-            std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n";
+            std::cout << "✔️ Vous ajoutez " << objet->getNom() << " à votre inventaire !\n\n";
             this->afficherInventaire();
         } else {
             std::cout << "❌ Inventaire plein ! Vous ne pouvez pas ajouter plus de 10 objets.\n";

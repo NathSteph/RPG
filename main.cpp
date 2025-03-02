@@ -25,6 +25,7 @@ int main() {
     do {
         afficherMenu();
         cin >> choix;
+        std::cout << "\n";
 
         switch (choix) {
             case 1:

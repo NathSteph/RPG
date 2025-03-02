@@ -37,6 +37,7 @@ void Joueur::utiliserPotion() {
 void Joueur::choisirNom() {
     cout << "👤 Choisissez un nom pour votre personnage : ";
     cin >> this->nom;
+    cout << "👤 Bienvenue, " << this->nom << " !\n\n";
 }
 
 void Joueur::afficherEquipement() const {
@@ -60,7 +61,7 @@ void Joueur::equiperObjet() {
     }
 
     if (choix.empty()) {
-        std::cout << "❌ Vous n'avez ni arme ni armure dans votre inventaire.\n";
+        std::cout << "❌ Vous n'avez ni arme ni armure dans votre inventaire.\n\n";
         return;
     }
 
@@ -80,7 +81,8 @@ void Joueur::equiperObjet() {
             }
             armeEquipee = dynamic_cast<Arme*>(objetChoisi);
             attaque += armeEquipee->getPuissance(); // Augmentation fictive (ajuste selon l'arme)
-            std::cout << "⚔️ Vous équipez " << armeEquipee->getNom() << " (+" << armeEquipee->getPuissance() << " attaque) !\n";
+            std::cout << "⚔️ Vous équipez " << armeEquipee->getNom() << " (+" << armeEquipee->getPuissance() << " attaque) !\n\n";
+            afficherEquipement();
         } 
         else if (objetChoisi->getType() == "ARMURE") {
             if (armureEquipee) {
@@ -91,7 +93,8 @@ void Joueur::equiperObjet() {
             }
             armureEquipee = dynamic_cast<Armure*>(objetChoisi);
             defense += armureEquipee->getDefense(); // Augmentation fictive (ajuste selon l’armure)
-            std::cout << "🛡️ Vous équipez " << armureEquipee->getNom() << " (+" << armureEquipee->getDefense() << " défense) !\n";
+            std::cout << "🛡️ Vous équipez " << armureEquipee->getNom() << " (+" << armureEquipee->getDefense() << " défense) !\n\n";
+            afficherEquipement();
         }
 
         // Retirer l'objet de l'inventaire
