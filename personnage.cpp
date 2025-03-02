@@ -46,7 +46,7 @@ void Personnage::attaquer(Personnage& cible) {
         }
     }
 
-    cible.afficherInfos();
+    std::cout << cible;
     std::cout << "\n";
 }
 
@@ -82,16 +82,6 @@ void Personnage::afficherInventaire() const {
 void Personnage::recevoirDegats(int degats) {
     this->PV -= degats;
     if (this->PV < 0) this->PV = 0;
-}
-
-void Personnage::afficherInfos() const {
-    if(this->getType() == "JOUEUR") {
-        std::cout << "👤 Joueur : " << this->getNom() << " | PV: " << this->getPointsDeVie()
-              << " | ATK: " << this->getAttaque() << " | DEF: " << this->getDefense() << std::endl;
-    } else {
-        std::cout << "👿 Ennemi : " << this->getNom() << " | PV: " << this->getPointsDeVie()
-              << " | ATK: " << this->getAttaque() << " | DEF: " << this->getDefense() << std::endl;
-    }
 }
 
 void Personnage::setNom(std::string nom) {
@@ -130,3 +120,11 @@ bool Personnage::estVivant() const {
     return this->PV > 0;
 }
 
+std::ostream& operator<<(std::ostream& os, const Personnage& p) {
+    os << (p.getType() == "JOUEUR" ? "👤 Joueur : " : "👿 Ennemi : ")
+       << p.getNom() << " | PV: " << p.getPointsDeVie()
+       << " | ATK: " << p.getAttaque()
+       << " | DEF: " << p.getDefense();
+       std::cout << "\n";
+    return os;
+}

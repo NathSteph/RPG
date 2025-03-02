@@ -193,8 +193,8 @@ void Jeu::lancerPartie() {
         std::cin >> choix;
 
         if (choix == 'A' || choix == 'a') {
-            joueur.afficherInfos();
-            ennemi.afficherInfos();
+            std::cout << joueur;
+            std::cout << ennemi;
             cout << "\n";
             combattre(ennemi);
             if (!estVivant) {
@@ -306,8 +306,8 @@ void Jeu::continuerPartie() {
         std::cin >> choix;
 
         if (choix == 'A' || choix == 'a') {
-            joueur.afficherInfos();
-            ennemi.afficherInfos();
+            std::cout << joueur;
+            std::cout << ennemi;
             combattre(ennemi);
             if (!estVivant) {
                 return; // Sort du jeu si le joueur est mort

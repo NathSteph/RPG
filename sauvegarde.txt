@@ -1,7 +1,5 @@
-tor
-59
-33 7
-3
-Épée en bois:ARME
-Potion de défense:POTION
-Épée rouillée:ARME
+totor
+117
+38 6
+1
+Potion de force:POTION

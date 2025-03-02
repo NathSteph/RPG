@@ -23,6 +23,7 @@ public:
      * @return Puissance de l'arme.
      */
     int getPuissance() const { return puissance; }
+
 };
 
 #endif

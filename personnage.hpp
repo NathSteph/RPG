@@ -74,9 +74,13 @@ public:
     void afficherInventaire() const;
 
     /**
-     * @brief Affiche les informations du personnage.
+     * @brief Surcharge de l'opérateur de flux de sortie pour afficher les informations du personnage.
+     * @param os Référence vers le flux de sortie.
+     * @param p Référence vers le personnage à afficher.
+     * @return Référence vers le flux de sortie.
      */
-    void afficherInfos() const;
+    friend std::ostream& operator<<(std::ostream& os, const Personnage& p);
+
 
     /**
      * @brief Ajoute un objet à l'inventaire du personnage.
